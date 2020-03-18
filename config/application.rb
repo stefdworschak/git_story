@@ -14,6 +14,13 @@ module GitStory
     # For deployment of with Rails 3.2 only
     config.assets.initialize_on_precompile = false
 
+    # For vendor/assets folder
+    config.assets.enabled = true
+    config.assets.paths << Rails.root.join("vendor", "assets", "javascripts", "bootstrap-4.3.1.min")
+    config.assets.paths << Rails.root.join("vendor", "assets", "javascripts", "jquery-3.4.1.min")
+    config.assets.paths << Rails.root.join("vendor", "assets", "javascripts", "popper-1.14.7.min")
+    config.assets.paths << Rails.root.join("vendor", "assets", "stylesheets", "bootstrap-4.3.1.min")
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
