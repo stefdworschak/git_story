@@ -12,3 +12,11 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Add vendor scripts to precompiling
+# Stylesheets
+Rails.application.config.assets.precompile += %w( bootstrap-4.3.1.min.css )
+# Javascripts
+Rails.application.config.assets.precompile += %w( jquery-3.4.1.min.js )
+Rails.application.config.assets.precompile += %w( popper-1.14.7.min.js )
+Rails.application.config.assets.precompile += %w( bootstrap-4.3.1.min.js )
