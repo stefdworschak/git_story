@@ -21,6 +21,11 @@ module GitStory
     config.assets.paths << Rails.root.join("vendor", "assets", "javascripts", "popper-1.14.7.min")
     config.assets.paths << Rails.root.join("vendor", "assets", "stylesheets", "bootstrap-4.3.1.min")
 
+    # For images
+    config.assets.paths << Rails.root.join("app", "assets", "images", "git_story_logo")
+    config.assets.paths << Rails.root.join("app", "assets", "images", "git_story_logo_new")
+    config.assets.paths << Rails.root.join("app", "assets", "images", "git_story_logo_inverted")
+    config.assets.paths << Rails.root.join("app", "assets", "images", "git_story_logo_inverted_transparent")
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
