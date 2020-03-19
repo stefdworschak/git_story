@@ -1,2 +1,46 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="row">
+    <div class="col-1"></div>
+
+    <div class="col-10">
+        <form action="/" method="GET">
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">https://github.com/</span>
+                </div>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder=":owner/:repo/" name="query">
+                <div class="input-group-append">
+                    <button>Search</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="col-1"></div>
+</div>
+
+<div class="row">
+    <div class="col-1"></div>
+    
+    <div class="col-10">
+        <% if @contents['message'] == '200' %>
+        <pre>
+            <% @contents['results'].each do |c| %>
+            <% if c['type'] == 'dir' %>
+                <a href="/?type=dir&query=<%= c['_links']['self'] %>"><%= c['name'] %></a>
+            <% else %>
+                <%= c['name'] %>
+            <% end %>
+            <% end %>
+        </pre>
+        <% else %>
+            <%= @contents['message'] %>
+        <% end %>
+    </div>
+
+    <div class="col-1"></div>
+
+</div>
+
