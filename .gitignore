@@ -31,3 +31,11 @@
 
 # Environment variables
 environ.rb
+
+# Do not commit playground controller
+app/assets/javascripts/playground.coffee
+app/assets/stylesheets/playground.scss
+app/controllers/playground_controller.rb
+app/helpers/playground_helper.rb
+app/views/playground/
+test/controllers/playground_controller_test.rb
