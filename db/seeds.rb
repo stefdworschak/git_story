@@ -8,6 +8,6 @@
 admin_user = User.new
 admin_user.email = 'admin@gmail.com'
 admin_user.password = 'Password1'
-admin_user.password_confirmation =
+admin_user.password_confirmation = 'Password1'
 admin_user.admin = true
 admin_user.save!
