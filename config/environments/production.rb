@@ -27,7 +27,9 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  #config.public_file_server.enabled = true
+  config.assets.compile = true
+  config.assets.digest = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -91,5 +93,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Configuring Devise url settings
+  config.action_mailer.default_url_options = { host: Rails.application.credentials.production_host,
+                                               port: Rails.application.credentials.production_port }
 
 end
