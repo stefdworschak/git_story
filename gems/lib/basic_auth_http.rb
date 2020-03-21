@@ -16,15 +16,14 @@ class BasicAuthHTTP
       @uri = URI.parse(url)
       http = Net::HTTP.new(@uri.host, @uri.port)
       req = Net::HTTP::Get.new(@uri.request_uri)
+      http.use_ssl = (@uri.scheme == "https")
       if not extra_fields.nil?
         extra_fields.each do |header|
             req.add_field(header['field'], header['field_value'])
         end
       end
       req.basic_auth(@username, @password)
-      res = Net::HTTP.start(@uri.hostname, @uri.port) {|http|
-        http.request(req)
-      }
+      res = http.request(req)
       return res
     else
       return nil

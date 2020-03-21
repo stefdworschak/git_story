@@ -40,3 +40,4 @@ app/helpers/playground_helper.rb
 app/views/playground/
 test/controllers/playground_controller_test.rb
 db/model_attr.json
+rails_commands.txt

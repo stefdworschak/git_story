@@ -20,7 +20,7 @@ class CodeviewController < ApplicationController
         if @repo.to_s.empty? or @path.to_s.empty?
             @contents = {"status" => "404", "message": "File not found"}
         else
-            all_commits = get_all_commits(@repo, @path)
+            all_commits = @github.get_commits_for_file(@repo, @path)
         end
 
         #if @repo.to_s.empty? or @path.to_s.empty?
@@ -46,11 +46,6 @@ class CodeviewController < ApplicationController
         #    end
         #end
         #@response = 0
-    end
-
-    def get_all_commits repo, path
-        commit_url = repo[/(.*\/)contents/, 1] + 'commits?path=' + path
-        contents = @github.get_contents(commit_url)
     end
 
     def get_download_url url
