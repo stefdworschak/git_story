@@ -27,4 +27,16 @@ class HomeController < ApplicationController
       @contents = JSON.parse('{"message": "Please enter an owner and repo."}')
     end
   end
+
+	def parse_repo query
+		if @repo.to_s.empty?
+			return nil
+		if query.include? "http://" or query.include? "https://"
+			return query
+		elsif query.split('/').length() == 2
+			return query += "/"
+		elsif query.split('/').length() == 3
+			return
+		end
+	end 
 end

@@ -66,3 +66,6 @@ gem 'devise'
 
 # Adding Font-Awesome
 gem 'font-awesome-rails'
+
+# Custom Gems
+gem 'basic_auth_http'

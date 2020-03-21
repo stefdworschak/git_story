@@ -28,13 +28,13 @@
         <% if @contents['message'] == '200' %>
         <pre>
             <% @contents['results'].each do |c| %>
-            <% if c['type'] == 'dir' %>
-                <a href="/?type=dir&query=<%= c['_links']['self'] %>"><%= c['name'] %></a>
-            <% else %>
-                <%= c['name'] %>
+                <% if c['type'] == 'dir' %>
+                    <a href="/?type=dir&query=<%= c['_links']['self'] %>"><%= fa_icon "folder-open" %> <%= c['name'] %></a>
+                <% else %>
+                    <a href="/codeview/?repo=<%= c['_links']['self'] %>&file=<%= c['name'] %>"><%= fa_icon "code" %> <%= c['name'] %></a>
+                <% end %>
             <% end %>
-            <% end %>
-        </pre>
+       </pre>
         <% else %>
             <%= @contents['message'] %>
         <% end %>

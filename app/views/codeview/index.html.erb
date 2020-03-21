@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-3">
+        <% if @contents['message'] == '200' %>
+            <pre>
+                <% @contents['results'].each do |c| %>
+                    <strong><%= c['sha'][0,6] %></strong> <%= c['commit']['author']['date'] %>
+                <% end %>
+            </pre>
+        <% else %>
+            <%= @contents['message'] %>
+        <% end %>
+    </div>
+    <div class="col-9">
+        <code><%= @single_commits %></code>
+    </div>
+<div>
