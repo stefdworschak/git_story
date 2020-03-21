@@ -30,7 +30,8 @@ class HomeController < ApplicationController
 
 	def parse_repo query
 		if @repo.to_s.empty?
-			return nil
+            return nil
+        end
 		if query.include? "http://" or query.include? "https://"
 			return query
 		elsif query.split('/').length() == 2
