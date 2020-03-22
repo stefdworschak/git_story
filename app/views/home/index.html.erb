@@ -8,7 +8,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">https://github.com/</span>
                 </div>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder=":owner/:repo/" name="query">
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder=":owner/:repo/" name="query" value="<%= @query %>">
                 <div class="input-group-append">
                     <button>Search</button>
                 </div>
@@ -25,13 +25,14 @@
     <div class="col-1"></div>
     
     <div class="col-10">
-        <% if @contents['message'] == '200' %>
+        <% if @contents['status'] == '200' %>
         <pre>
-            <% @contents['results'].each do |c| %>
+    <a href="#" id="history-back"><%= fa_icon "folder-open" %> ...</a>
+            <% @contents['message'].each do |c| %>
                 <% if c['type'] == 'dir' %>
-                    <a href="/?type=dir&query=<%= c['_links']['self'] %>"><%= fa_icon "folder-open" %> <%= c['name'] %></a>
+    <a href="/?type=dir&query=<%= c['_links']['self'] %>"><%= fa_icon "folder-open" %> <%= c['name'] %></a>
                 <% else %>
-                    <a href="/codeview/?repo=<%= c['_links']['self'] %>&file=<%= c['name'] %>"><%= fa_icon "code" %> <%= c['name'] %></a>
+    <a href="/codeview/?repo=<%= c['_links']['self'] %>&file=<%= c['name'] %>"><%= fa_icon "code" %> <%= c['name'] %></a>
                 <% end %>
             <% end %>
        </pre>

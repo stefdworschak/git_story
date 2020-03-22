@@ -1,6 +1,9 @@
 require 'basic_auth_http'
+require 'json'
+
 class Github
     def initialize
+        @repo = nil
         @github_user = Rails.application.credentials.github_api_user
         @github_token = Rails.application.credentials.github_api_token
         BasicAuthHTTP.new(@github_user, @github_token)
@@ -12,8 +15,9 @@ class Github
       puts contents
     end
 
-    def greet
-      return "Hello!"
+    def set_repo repo
+      @repo = repo
+      return true
     end
 
     def get_user
@@ -24,11 +28,14 @@ class Github
         #preview_header = [{"field" => "Accept", "field_value" => "application/vnd.github.cloak-preview"}]
         #response = BasicAuthHTTP.get_request(url, preview_header)
         response = BasicAuthHTTP.get_request(url)
-        if response.nil? or response.code != 200
+        if response.nil? 
+            error = {"status" => 505, "message" => "No url entered"}
+            return error
+        elsif response.code != '200'
             error = {"status" => response.code, "message" => response.message}
             return error
         end
-        contents = {"status" => response.code, "message" => response.body}
+        contents = {"status" => response.code, "message" => JSON.parse(response.body)}
         return contents
     end
 
