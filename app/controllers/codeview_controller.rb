@@ -5,22 +5,60 @@ require 'github'
 class CodeviewController < ApplicationController
     @github = nil
     def index
-        @commits = []
+        commits = []
         @error_message = ""
         @ERROR_CODE = "404"
+        @error = {"status" => "404", "message": "File not found"}
         @repo = params[:repo]
         @path = params[:file]
         #For the moment
         @contents = {"status" => "404", "message": "File not found"}
         @single_commit = "A commit"
         @github = Github.new()
-        #@single_commits = github.get_contents("http://www.example.com").body
-        #@users = github.get_user()
 
         if @repo.to_s.empty? or @path.to_s.empty?
-            @contents = {"status" => "404", "message": "File not found"}
+          @contents = @error
         else
-            all_commits = @github.get_commits_for_file(@repo, @path)
+					@github.set_repo @repo
+					all_commits = @github.get_commits_for_file(@path)
+          if all_commits['status'] == '200'
+            file_commits = []
+            count = all_commits['message'].length-1
+            all_commits['message'].each do |commit|
+              commit_details = {
+                'id' => count,
+                'timestamp' => commit['commit']['committer']['date'],
+                'name' => @path,
+                'sha' => commit['sha'],
+                'author' => commit['author'],
+                'committer' => commit['committer'],
+                'message' => commit['commit']['message']
+              } 
+              single_commit = @github.get_single_commit(@path, commit['sha'])
+              if single_commit.nil? or all_commits['status'] != '200'
+                commit_details['download_url'] = 'N/A'
+                commit_details['content'] = 'File content not found'
+                commits.push(commit_details)
+              else
+                download_url = single_commit['message']['download_url']
+                download_content = @github.get_file_contents(download_url)
+                if download_content.nil? or download_content['status'] != '200'
+                  commit_details['download_url'] = download_url
+                  commit_details['content'] = 'File content not found'
+                else
+                  commit_details['download_url'] = download_url
+                  commit_details['content'] = download_content['message']
+                end
+                commits.push(commit_details)
+                count -= 1
+              end
+            end
+            @contents = {'status' => '200', 'message' => commits.reverse()}
+					else
+            commits_error = @error
+            commits_error['message'] = 'No commits found for the file in the specified repo'
+            @contents = commits_error
+					end
         end
 
         #if @repo.to_s.empty? or @path.to_s.empty?
