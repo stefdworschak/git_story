@@ -1,16 +1,25 @@
 <div class="row">
+    <% if @contents['status'] == '200' %>
     <div class="col-3">
-        <% if @contents['message'] == '200' %>
-            <pre>
-                <% @contents['results'].each do |c| %>
-                    <strong><%= c['sha'][0,6] %></strong> <%= c['commit']['author']['date'] %>
-                <% end %>
-            </pre>
-        <% else %>
-            <%= @contents['message'] %>
-        <% end %>
+      <pre><button class="btn btn-primary btn-sm" id="play"><%= fa_icon "play" %> Play Now</button><br/>
+<% @contents['message'].each do |c| %>
+<% if c['id'] == 0 %>
+<strong><a href="#"><%= c['timestamp'][0,16] %>    <%= c['author']['login'] %>    <%= c['sha'][0,6] %></a></strong>
+<% else %>
+<a href="#"><%= c['timestamp'][0,16] %>    <%= c['author']['login'] %>    <%= c['sha'][0,6] %></a>
+<% end %>
+          <% end %>
+      </pre>
     </div>
     <div class="col-9">
-        <code><%= @single_commits %></code>
+      <% @contents['message'].each do |c| %>
+        <% if c['id'] == 0 %>
+          <pre><% else %><pre style="display:none;"><% end %><%= c['content'].strip() %></pre>
+      <% end %>
     </div>
+  <% else %>
+    <div class="col-12">
+      <%= @content['message'] %>
+    </div>
+  <% end %>
 <div>

@@ -6,23 +6,22 @@ require 'github'
 class HomeController < ApplicationController
 
 	def index
-		@error = {"status" => "505", "message" => "Non-indentifiable repo."}
-    @query = params[:query]
-    @github = Github.new()
+		error = {"status" => "505", "message" => "Non-indentifiable repo."}
+    query = params[:query]
+    github = Github.new()
 
     if params[:type] == 'dir'
-				@contents = @github.get_contents(@query)
-				@query = @query[/(http|https):\/\/api.github.com\/repos\/([\w,\-,\_]*[\/][\w,\-,\_]*)/, 2]
+			@contents = github.get_contents(query)
+			query = query[/(http|https):\/\/api.github.com\/repos\/([\w,\-,\_]*[\/][\w,\-,\_]*)/, 2]
     else  
-				repo_and_user = parse_repo(@query)
-				@query = repo_and_user
-				puts repo_and_user
-				if repo_and_user.nil? 
-					@contents = @error
-				else
-					url = 'https://api.github.com/repos/' + repo_and_user + '/contents'
-					@contents = @github.get_contents(url)
-				end
+			repo_and_user = parse_repo(query)
+			@repo = repo_and_user
+			if repo_and_user.nil? 
+				@contents = error
+			else
+				url = 'https://api.github.com/repos/' + repo_and_user + '/contents'
+				@contents = github.get_contents(url)
+			end
     end        
   end
 

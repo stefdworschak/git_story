@@ -32,7 +32,7 @@
                 <% if c['type'] == 'dir' %>
     <a href="/?type=dir&query=<%= c['_links']['self'] %>"><%= fa_icon "folder-open" %> <%= c['name'] %></a>
                 <% else %>
-    <a href="/codeview/?repo=<%= c['_links']['self'] %>&file=<%= c['name'] %>"><%= fa_icon "code" %> <%= c['name'] %></a>
+    <a href="/codeview/?repo=<%= @repo %>&file=<%= c['name'] %>"><%= fa_icon "code" %> <%= c['name'] %></a>
                 <% end %>
             <% end %>
        </pre>
