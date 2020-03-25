@@ -1,20 +1,22 @@
 <div class="row">
     <% if @contents['status'] == '200' %>
     <div class="col-3">
-      <pre><button class="btn btn-primary btn-sm" id="play"><%= fa_icon "play" %> Play Now</button><br/>
+      <pre id="playlist">
+<button class="btn btn-primary btn-sm btn-round" id="play"><%= fa_icon "play" %></button> <button class="btn btn-primary btn-sm btn-round" id="stop"><%= fa_icon "stop" %></button> <button class="btn btn-primary btn-sm btn-round" id="step-forward"><%= fa_icon "step-forward" %></button> <button class="btn btn-primary btn-sm btn-round" id="step-backward"><%= fa_icon "step-backward" %></button>
+<br/>
 <% @contents['message'].each do |c| %>
 <% if c['id'] == 0 %>
-<strong><a href="#"><%= c['timestamp'][0,16] %>    <%= c['author']['login'] %>    <%= c['sha'][0,6] %></a></strong>
+<a href="#" class="highlighed_link"><%= c['timestamp'][0,16] %>    <%= c['author']['login'] %>    <%= c['sha'][0,6] %></a>
 <% else %>
 <a href="#"><%= c['timestamp'][0,16] %>    <%= c['author']['login'] %>    <%= c['sha'][0,6] %></a>
 <% end %>
           <% end %>
       </pre>
     </div>
-    <div class="col-9">
+    <div class="col-9 content-display">
       <% @contents['message'].each do |c| %>
         <% if c['id'] == 0 %>
-          <pre><% else %><pre style="display:none;"><% end %><%= c['content'].strip() %></pre>
+          <pre class="content" id="highlighted-content"><% else %><pre style="display:none" class="content"><% end %><%= c['content'].strip() %></pre>
       <% end %>
     </div>
   <% else %>

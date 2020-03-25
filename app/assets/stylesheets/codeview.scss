@@ -1,3 +1,23 @@
 // Place all the styles related to the codeview controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.highlighed_link {
+  font-weight: bold;
+}
+
+.content {
+  position:absolute;
+  top:0px;
+  width:98%;
+  padding:10px;
+}
+
+.content-display {
+  padding:0px;
+}
+
+.btn-round {
+  width:35px;
+  height:35px;
+  border-radius: 50%;
+}

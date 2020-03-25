@@ -26,7 +26,7 @@
     
     <div class="col-10">
         <% if @contents['status'] == '200' %>
-        <pre>
+        <pre id="playlist">
     <a href="#" id="history-back"><%= fa_icon "folder-open" %> ...</a>
             <% @contents['message'].each do |c| %>
                 <% if c['type'] == 'dir' %>
